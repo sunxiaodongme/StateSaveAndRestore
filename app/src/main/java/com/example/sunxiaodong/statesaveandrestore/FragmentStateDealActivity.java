@@ -26,6 +26,7 @@ public class FragmentStateDealActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_state_deal_activity);
         mFm = getSupportFragmentManager();
         mStateSaveAndRestoreFragment = (StateSaveAndRestoreFragment) mFm.findFragmentByTag(StateSaveAndRestoreFragment.TAG);
+        Log.i(SXD, TAG + "--onCreate++mStateSaveAndRestoreFragment:" + mStateSaveAndRestoreFragment);
         if (mStateSaveAndRestoreFragment == null) {
             mStateSaveAndRestoreFragment = StateSaveAndRestoreFragment.newInstance();
             mFm.beginTransaction().add(R.id.content_layout, mStateSaveAndRestoreFragment, StateSaveAndRestoreFragment.TAG).commit();

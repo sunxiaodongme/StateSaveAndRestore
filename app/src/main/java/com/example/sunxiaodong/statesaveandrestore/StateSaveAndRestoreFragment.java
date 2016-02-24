@@ -32,6 +32,7 @@ public class StateSaveAndRestoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setRetainInstance(true);//该方法设置了状态变量是否会在状态改变重建时销毁
         if (savedInstanceState == null) {
             Log.i(SXD, TAG + "--onCreate++savedInstanceState:" + savedInstanceState);
         } else {

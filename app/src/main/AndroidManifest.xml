@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".StateSaveAndRestoreActivity" />
         <activity android:name=".FragmentStateDealActivity" />
+        <activity android:name=".ViewStateDealActivity" />
     </application>
 
 </manifest>

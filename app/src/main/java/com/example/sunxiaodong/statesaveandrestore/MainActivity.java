@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goStateDealView() {
-        /*Intent intent = new Intent(this, PagerAdapterActivity.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, ViewStateDealActivity.class);
+        startActivity(intent);
     }
 
 }
