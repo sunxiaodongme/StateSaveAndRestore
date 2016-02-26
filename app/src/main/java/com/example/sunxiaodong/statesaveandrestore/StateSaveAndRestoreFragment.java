@@ -14,7 +14,7 @@ import android.widget.EditText;
 /**
  * Created by sunxiaodong on 16/2/23.
  */
-public class StateSaveAndRestoreFragment extends Fragment {
+/*public class StateSaveAndRestoreFragment extends Fragment {
 
     public static final String TAG = StateSaveAndRestoreFragment.class.getSimpleName();
     private static final String SXD = "sxd";
@@ -32,11 +32,12 @@ public class StateSaveAndRestoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setRetainInstance(true);//该方法设置了状态变量是否会在状态改变重建时销毁
+        Log.i(SXD, TAG + "--onCreate++savedInstanceState++mEditTextStr:" + mEditTextStr);
         if (savedInstanceState == null) {
             Log.i(SXD, TAG + "--onCreate++savedInstanceState:" + savedInstanceState);
         } else {
-            Log.i(SXD, TAG + "--onCreate++savedInstanceState++mEditTextStr:" + savedInstanceState.getString(STATE_KEY));
+            mEditTextStr = savedInstanceState.getString(STATE_KEY);
+            Log.i(SXD, TAG + "--onCreate++savedInstanceState++mEditTextStr:" + mEditTextStr);
             Log.i(SXD, TAG + "--onCreate++savedInstanceState++mString:" + savedInstanceState.getString(FragmentStateDealActivity.STR_STATE_KEY));
         }
     }
@@ -137,6 +138,126 @@ public class StateSaveAndRestoreFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putString(STATE_KEY, mEditTextStr);
         Log.i(SXD, TAG + "--onSaveInstanceState++outState++mEditTextStr:" + outState.getString(STATE_KEY));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i(SXD, TAG + "--onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i(SXD, TAG + "--onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(SXD, TAG + "--onDestroy");
+    }
+
+}*/
+
+/**
+ * 通过setRetainInstance(true)将该Fragment设置为“保持Fragment“
+ */
+public class StateSaveAndRestoreFragment extends Fragment {
+
+    public static final String TAG = StateSaveAndRestoreFragment.class.getSimpleName();
+    private static final String SXD = "sxd";
+
+    private EditText mEditText;//EditText中的值，系统默认就会恢复
+    private String mEditTextStr;//状态变量的值，当通过setRetainInstance(true)将该Fragment设置为“保持Fragment“,则该变量在宿主Activity销毁重建时，会一直保持
+
+    public static StateSaveAndRestoreFragment newInstance() {
+        StateSaveAndRestoreFragment stateSaveAndRestoreFragment = new StateSaveAndRestoreFragment();
+        return stateSaveAndRestoreFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        Log.i(SXD, TAG + "--onCreate");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.state_save_and_restore_fragment, container, false);
+        Log.i(SXD, TAG + "--onCreateView++mEditTextStr:" + mEditTextStr);
+        initView(rootView);
+        return rootView;
+    }
+
+    private void initView(View rootView) {
+        mEditText = (EditText) rootView.findViewById(R.id.edit_text);
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mEditTextStr = mEditText.getText().toString();
+            }
+        });
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.i(SXD, TAG + "--onViewCreated");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.i(SXD, TAG + "--onActivityCreated");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.i(SXD, TAG + "--onViewStateRestored");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i(SXD, TAG + "--onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(SXD, TAG + "--onResume");
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.i(SXD, TAG + "--onHiddenChanged++hidden:" + hidden);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(SXD, TAG + "--onPause");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(SXD, TAG + "--onSaveInstanceState++mEditTextStr:" + mEditTextStr);
     }
 
     @Override
